@@ -1,25 +1,30 @@
 package com.trendyol.shoppingcart.infrastructure.io;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
 /**
  * Reads input file line by line.
- * TODO: Phase 6
  */
 public class FileCommandReader implements AutoCloseable {
 
-    public FileCommandReader(Path inputPath) {
-        // TODO: Phase 6
+    private final Stream<String> stream;
+
+    public FileCommandReader(Path inputPath) throws IOException {
+        // Dosyayı satır satır okuyup bir Stream nesnesine çeviriyoruz
+        this.stream = Files.lines(inputPath);
     }
 
     public Stream<String> lines() {
-        // TODO: Phase 6
-        throw new UnsupportedOperationException("TODO: Phase 6");
+        return this.stream;
     }
 
     @Override
-    public void close() throws Exception {
-        // TODO: Phase 6
+    public void close() {
+        if (this.stream != null) {
+            this.stream.close();
+        }
     }
 }

@@ -35,8 +35,16 @@ public class DijitalItemTest {
 
     @Test
     void increaseQuantity_shouldIncreaseQuantity() {
-        digitalItem.increaseQuantity(5);
-        assertThat(digitalItem.getQuantity()).isEqualTo(7);
+        digitalItem.increaseQuantity(3); // Başlangıçta 2 adet var. 3 daha eklendi, toplam 5 oldu (Sınır 5)
+        assertThat(digitalItem.getQuantity()).isEqualTo(5);
+    }
+
+    @Test
+    void increaseQuantity_whenExceedsLimit_shouldThrowException() {
+        // Sınır 5 olduğu için 4 tane daha (Toplam 6) eklemeye çalışırsak hata fırlatmalı
+        assertThatThrownBy(() -> digitalItem.increaseQuantity(4))
+                .isInstanceOf(InvalidItemException.class)
+                .hasMessageContaining("en fazla 5 adet olabilir");
     }
 
     @Test

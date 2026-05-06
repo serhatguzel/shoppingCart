@@ -60,6 +60,10 @@ public abstract class Item {
      * Maksimum adet kontrolü Cart tarafından çağrılmadan önce yapılır.
      */
     public void increaseQuantity(int amount) {
+        if (this.quantity + amount > getMaxQuantity()) {
+            throw new InvalidItemException(
+                    "Bu üründen sepette en fazla " + getMaxQuantity() + " adet olabilir.");
+        }
         this.quantity += amount;
     }
 
